@@ -1,0 +1,14 @@
+name: Build Pull Request
+on:
+  pull_request:
+    branches:
+      - 'main'
+      - 'fix/[0-9]+.[0-9]+.x'
+
+jobs:
+  docker:
+    uses: onecx/ci-common/.github/workflows/docker-build.yml@v1
+    secrets: inherit
+    with:
+      push: false    
+      samoDockerFile: Dockerfile  

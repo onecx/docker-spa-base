@@ -1,0 +1,13 @@
+name: Build Release
+on:
+  push:
+    tags:
+      - '**'
+jobs:
+  docker:
+    uses: onecx/ci-common/.github/workflows/docker-release.yml@v1
+    secrets: inherit
+  changelog:
+    uses: onecx/ci-common/.github/workflows/generate-changelog.yml@v1
+    needs: docker
+    secrets: inherit
