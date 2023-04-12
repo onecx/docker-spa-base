@@ -10,5 +10,6 @@ jobs:
     uses: onecx/ci-common/.github/workflows/docker-build.yml@v1
     secrets: inherit
     with:
-      push: true    
+      push: true
+      artifact: '' 
       samoDockerFile: Dockerfile  
