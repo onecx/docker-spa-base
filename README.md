@@ -6,7 +6,7 @@ It exposes NginX http server on port 8080, provides a simple static endpoint for
 # Usage
 
 ```
-FROM oci://ghcr.io/onecx/docker-spa-base
+FROM oci://ghcr.io/onecx/docker-spa-base:v1
 # Copy applicaiton build
 COPY --from=build --chown=101:0 /ng-app/dist $DIR_HTML
 # Define application nginx locations
