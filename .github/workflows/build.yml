@@ -11,5 +11,6 @@ jobs:
     secrets: inherit
     with:
       push: true
+      tags: '{{ .Version }},{{ .Branch }}'
       artifact: '' 
       samoDockerFile: Dockerfile  

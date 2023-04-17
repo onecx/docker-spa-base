@@ -7,6 +7,8 @@ jobs:
   docker:
     uses: onecx/ci-common/.github/workflows/docker-release.yml@v1
     secrets: inherit
+    with:
+      tags: '{{ .Version }},v{{ .Major }},v{{ .Major }}.{{ .Minor }}'
   changelog:
     uses: onecx/ci-common/.github/workflows/generate-changelog.yml@v1
     needs: docker
