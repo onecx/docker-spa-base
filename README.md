@@ -28,7 +28,7 @@ Structure:
 
 Application needs to define `CONFIG_ENV_LIST` environment variables in the `Dockerfile` as list of environment variable names to replace in configuration files. Default value:
 ```
-ENV CONFIG_ENV_LIST BFF_URL APP_BASE_HREF CORS_ENABLED
+ENV CONFIG_ENV_LIST BFF_URL APP_BASE_HREF APP_ID CORS_ENABLED
 ```
 By default, the static html assets will be served under root path `/`, but this can be configured by setting an env var `APP_BASE_HREF`. If you set it, it should start and end with a forward slash e.g. `/my-app/`.
 
