@@ -10,9 +10,11 @@ on:
 
 jobs:
   docker:
-    uses: onecx/ci-common/.github/workflows/docker-build.yml@v1
+    uses: onecx/ci-common/.github/workflows/docker-build.yml@test1
     secrets: inherit
     with:
+      platform: 'linux/amd64,linux/arm64'
+      buildx: true
       push: false
       artifact: ''
       samoDockerFile: Dockerfile  
