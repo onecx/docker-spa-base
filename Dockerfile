@@ -1,4 +1,4 @@
-FROM bitnami/nginx:latest
+FROM bitnami/nginx:1.24.0
 
 ENV DIR_NGINX /opt/bitnami/nginx
 ENV DIR_SERVER_BLOCKS ${DIR_NGINX}/conf/server_blocks
