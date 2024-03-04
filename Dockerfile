@@ -1,4 +1,4 @@
-FROM bitnami/nginx:1.24.0
+FROM bitnami/nginx:1.25.4
 
 ENV DIR_NGINX /opt/bitnami/nginx
 ENV DIR_SERVER_BLOCKS ${DIR_NGINX}/conf/server_blocks
@@ -26,7 +26,7 @@ COPY locations/*.conf ${DIR_LOCATION}/
 COPY default.conf ${DIR_SERVER_BLOCKS}
 
 # default list of environment variable names
-ENV CONFIG_ENV_LIST BFF_URL,APP_BASE_HREF,CORS_ENABLED,APP_VERSION,APP_ID,TKIT_PORTAL_URL
+ENV CONFIG_ENV_LIST BFF_URL,APP_BASE_HREF,CORS_ENABLED,APP_VERSION,APP_ID,PRODUCT_NAME,TKIT_PORTAL_URL
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
