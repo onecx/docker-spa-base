@@ -22,6 +22,8 @@ else
 fi
 
 IFS=, read -ra config_env_names <<< "$CONFIG_ENV_LIST"
+IFS=, read -ra config_env_ext_names <<< "$CONFIG_ENV_EXT_LIST"
+config_env_names=( "${config_env_names[@]}" "${config_env_ext_names[@]}" )
 
 # Update environment variables in env.json
 if [ -f ${DIR_ASSETS}/env.json ]; then
@@ -34,13 +36,24 @@ if [ -f ${DIR_ASSETS}/env.json ]; then
   done
 
   echo "Updating ${DIR_ASSETS}/env.json"
-  for item in $config_env_names; do
+  for item in ${config_env_names[@]}; do
     value=$(printf '%s\n' "${!item}")
     if [[ ! -z "$value" ]]; then
       echo "Replace '$item' with '$value' in env.json"
       sed -i "s|\${$item}|$value|g" ${DIR_ASSETS}/env.json
     fi
   done
+
+  if [[ ${ADDITIONAL_REPLACE:-false} == true ]]; then
+    echo "Second update ${DIR_ASSETS}/env.json"
+    for item in ${config_env_names[@]}; do
+      value=$(printf '%s\n' "${!item}")
+      if [[ ! -z "$value" ]]; then
+        echo "Replace '$item' with '$value' in env.json"
+        sed -i "s|\${$item}|$value|g" ${DIR_ASSETS}/env.json
+      fi
+    done
+  fi
 
   # Create INJECTED_ENV from env.json
   envJsonAsString=$(sed -E 's/\$\{.*\}/@UNDEFINED/' ${DIR_ASSETS}/env.json | tr -d "\n")
