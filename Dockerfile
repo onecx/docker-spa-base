@@ -1,9 +1,9 @@
-FROM bitnami/nginx:1.25.4
+FROM nginx:1.27.2
 
-ENV DIR_NGINX /opt/bitnami/nginx
-ENV DIR_SERVER_BLOCKS ${DIR_NGINX}/conf/server_blocks
+ENV DIR_NGINX /etc/nginx
+ENV DIR_SERVER_BLOCKS ${DIR_NGINX}/conf.d
 ENV DIR_LOCATION ${DIR_SERVER_BLOCKS}/locations
-ENV DIR_HTML ${DIR_NGINX}/html
+ENV DIR_HTML /usr/share/nginx/html
 ENV DIR_ASSETS ${DIR_HTML}/assets
 
 ENV CORS_ENABLED false

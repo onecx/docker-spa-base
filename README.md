@@ -1,6 +1,6 @@
 # Base image for single page apps   
 
-This image is basedon in NginX(Bitnami variant). 
+This image is basedon in NginX. 
 It exposes NginX http server on port 8080, provides a simple static endpoint for healthcheck at `/healthcheck` url. All images and fonts will have cache headers set to 1 month, as well as webpack hashed assets(js and css bundles) as they have hashes included in their names. 
 
 # Usage
