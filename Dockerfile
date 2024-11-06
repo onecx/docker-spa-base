@@ -27,6 +27,7 @@ COPY default.conf ${DIR_SERVER_BLOCKS}
 
 # default list of environment variable names
 ENV CONFIG_ENV_LIST BFF_URL,APP_BASE_HREF,CORS_ENABLED,APP_VERSION,APP_ID,PRODUCT_NAME,TKIT_PORTAL_URL
+RUN chown -R 1001:1001 /var && mkdir -p /var/run && touch /var/run/nginx.pid && chmod 775 -R /var/run/nginx.pid
 
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
