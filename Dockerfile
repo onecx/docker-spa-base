@@ -1,4 +1,4 @@
-FROM nginx:1.27.2
+FROM nginx:1.27.3
 
 ENV DIR_NGINX /etc/nginx
 ENV DIR_SERVER_BLOCKS ${DIR_NGINX}/conf.d
