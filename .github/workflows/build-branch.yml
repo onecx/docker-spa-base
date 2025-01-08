@@ -10,7 +10,7 @@ on:
 
 jobs:
   docker:
-    uses: onecx/ci-common/.github/workflows/docker-build.yml@v1
+    uses: onecx/ci-common/.github/workflows/docker-build.yml@v2test
     secrets: inherit
     with:
       platform: 'linux/amd64,linux/arm64'
