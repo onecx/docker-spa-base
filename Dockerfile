@@ -1,4 +1,4 @@
-FROM nginx:1.27.3
+FROM nginx:1.27.3@sha256:0a399eb16751829e1af26fea27b20c3ec28d7ab1fb72182879dcae1cca21206a
 
 ENV DIR_NGINX /etc/nginx
 ENV DIR_SERVER_BLOCKS ${DIR_NGINX}/conf.d
