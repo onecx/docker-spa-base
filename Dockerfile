@@ -1,4 +1,4 @@
-FROM nginxinc/nginx-unprivileged:1.27.4@sha256:228360b3d6b18001d7c123486d7c267e3278b32d14864ee14f92f35156c34bed
+FROM nginxinc/nginx-unprivileged:1.27.4@sha256:663d1f83b634d625f3c36b323b21cc5c2c4ed5ebf912a01bfe13cce2f455e92e
 
 ENV DIR_NGINX /etc/nginx
 ENV DIR_SERVER_BLOCKS ${DIR_NGINX}/conf.d
