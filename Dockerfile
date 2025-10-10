@@ -9,8 +9,8 @@ ENV DIR_ASSETS ${DIR_HTML}/assets
 ENV CORS_ENABLED false
 
 USER root
-RUN apt-get update -y && \
-    apt-get install -y jq && \
+RUN apk update && \
+    apk add jq && \
     rm -rf ${DIR_HTML}/* && \
     mkdir -p ${DIR_LOCATION} && \
     # chown 1001 -R ${DIR_SERVER_BLOCKS} && \
