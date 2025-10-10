@@ -79,3 +79,5 @@ for file in ${DIR_SERVER_BLOCKS}/*.conf ${DIR_LOCATION}/*.conf; do
 done
 
 echo "Done"
+
+exec "$@"
