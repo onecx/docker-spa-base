@@ -4,6 +4,7 @@ ENV DIR_NGINX /etc/nginx
 ENV DIR_SERVER_BLOCKS ${DIR_NGINX}/conf.d
 ENV DIR_LOCATION ${DIR_SERVER_BLOCKS}/locations
 ENV DIR_HTML /usr/share/nginx/html
+ENV DIR_STATIC ${DIR_HTML}/static
 ENV DIR_ASSETS ${DIR_HTML}/assets
 
 ENV CORS_ENABLED false
@@ -24,6 +25,9 @@ RUN chmod +x /entrypoint.sh
 # nginx default configuration
 COPY locations/*.conf ${DIR_LOCATION}/
 COPY default.conf ${DIR_SERVER_BLOCKS}
+
+# default error pages
+COPY error_pages/*.html ${DIR_STATIC}/
 
 # default list of environment variable names
 ENV CONFIG_ENV_LIST BFF_URL,APP_BASE_HREF,CORS_ENABLED,APP_VERSION,APP_ID,PRODUCT_NAME,TKIT_PORTAL_URL
