@@ -8,6 +8,10 @@ ENV DIR_STATIC ${DIR_HTML}/static
 ENV DIR_ASSETS ${DIR_HTML}/assets
 
 ENV CORS_ENABLED false
+ENV CORS_ALLOW_ORIGIN ""
+ENV CORS_ALLOW_CREDENTIALS false
+ENV CORS_ALLOW_HEADERS "Authorization, Origin, X-Requested-With, Content-Type, Accept"
+ENV CORS_ALLOW_METHODS "GET, POST, OPTIONS, HEAD"
 
 USER root
 RUN apk update && \
@@ -30,7 +34,7 @@ COPY default.conf ${DIR_SERVER_BLOCKS}
 COPY error_pages/*.html ${DIR_STATIC}/
 
 # default list of environment variable names
-ENV CONFIG_ENV_LIST BFF_URL,APP_BASE_HREF,CORS_ENABLED,APP_VERSION,APP_ID,PRODUCT_NAME,TKIT_PORTAL_URL
+ENV CONFIG_ENV_LIST BFF_URL,APP_BASE_HREF,CORS_ENABLED,CORS_ALLOW_ORIGIN,CORS_ALLOW_CREDENTIALS,CORS_ALLOW_HEADERS,CORS_ALLOW_METHODS,APP_VERSION,APP_ID,PRODUCT_NAME,TKIT_PORTAL_URL
 # RUN chown -R 1001:1001 /var && mkdir -p /var/run && touch /var/run/nginx.pid && chmod 775 -R /var/run/nginx.pid
 
 ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
