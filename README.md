@@ -49,7 +49,7 @@ CORS is configured using Nginx maps (`00-cors-map.conf`) that validate incoming 
 |---|---|---|
 | `CORS_ENABLED` | `false` | Enable/disable CORS header emission |
 | `CORS_ALLOW_ORIGIN` | `""` | Exact origin to allow (e.g., `https://shell.example.com`) |
-| `CORS_ALLOW_ORIGIN_REGEX` | `^$` | Regex pattern for multiple origins (e.g., `^https://(shell\|portal)\.example\.com$`) |
+| `CORS_ALLOW_REGEX` | `^$` | Regex pattern for multiple origins (e.g., `^https://(shell\|portal)\.example\.com$`) |
 | `CORS_ALLOW_CREDENTIALS` | `false` | Allow cookies/credentials in cross-origin requests (set true only with cookie-based auth) |
 | `CORS_ALLOW_HEADERS` | `Authorization, Origin, X-Requested-With, Content-Type, Accept` | Allowed request headers |
 | `CORS_ALLOW_METHODS` | `GET, POST, OPTIONS, HEAD` | Allowed HTTP methods |
@@ -68,7 +68,7 @@ ENV CORS_ALLOW_ORIGIN https://shell.example.com
 FROM oci://ghcr.io/onecx/docker-spa-base:v1
 ENV CORS_ENABLED true
 ENV CORS_ALLOW_ORIGIN ""
-ENV CORS_ALLOW_ORIGIN_REGEX ^https://(shell|portal)\.example\.com$
+ENV CORS_ALLOW_REGEX ^https://(shell|portal)\.example\.com$
 ```
 
 **Option 3: Public API (any origin, no credentials)**
@@ -87,14 +87,14 @@ ENV CORS_ALLOW_ORIGIN https://shell.example.com
 ENV CORS_ALLOW_CREDENTIALS true
 ```
 
-### Do I need both `CORS_ALLOW_ORIGIN` and `CORS_ALLOW_ORIGIN_REGEX`?
+### Do I need both `CORS_ALLOW_ORIGIN` and `CORS_ALLOW_REGEX`?
 
 **No.** Configure only one:
 
 - **Use `CORS_ALLOW_ORIGIN`** for a single trusted origin
-  - Keep `CORS_ALLOW_ORIGIN_REGEX=^$` (default)
+  - Keep `CORS_ALLOW_REGEX=^$` (default)
 
-- **Use `CORS_ALLOW_ORIGIN_REGEX`** for multiple origins
+- **Use `CORS_ALLOW_REGEX`** for multiple origins
   - Keep `CORS_ALLOW_ORIGIN=""` (empty)
 
 If both are set, the map checks them in order; whichever matches first wins.
@@ -112,7 +112,7 @@ DOCKER_API_VERSION=1.44 docker run --rm -p 8080:8080 \
   -e CORS_ENABLED=true \
   -e APP_BASE_HREF=/ \
   -e CORS_ALLOW_ORIGIN=https://trusted.example \
-  -e CORS_ALLOW_ORIGIN_REGEX=^$ \
+  -e CORS_ALLOW_REGEX=^$ \
   spa-base-cors-test
 ```
 
@@ -135,7 +135,7 @@ DOCKER_API_VERSION=1.44 docker run --rm -p 8080:8080 \
   -e CORS_ENABLED=true \
   -e APP_BASE_HREF=/ \
   -e CORS_ALLOW_ORIGIN="" \
-  -e CORS_ALLOW_ORIGIN_REGEX='^https://(trusted\.example|shell\.example)$' \
+  -e CORS_ALLOW_REGEX='^https://(trusted\.example|shell\.example)$' \
   spa-base-cors-test
 ```
 

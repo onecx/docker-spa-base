@@ -72,68 +72,19 @@ fi
 # Update environment variables in nginx config files
 for file in ${DIR_SERVER_BLOCKS}/*.conf ${DIR_LOCATION}/*.conf; do
   # Skip 00-cors-map.conf as it will be generated dynamically
-  if [ "$(basename "$file")" = "00-cors-map.conf" ]; then
-    continue
-  fi
+  # if [ "$(basename "$file")" = "00-cors-map.conf" ]; then
+  #   continue
+  # fi
   echo "Replacing '@@<var>' placeholders in file: $file"
   for item in $config_env_names; do
     value=$(eval "printf '%s' \"\${$item}\"")
+    
     # Escape sed special characters in the replacement value (& | /)
     escaped_value=$(printf '%s\n' "$value" | sed -e 's/[&|/]/\\&/g')
+    echo "value for '$item' is '$value' and escaped value is '$escaped_value'"
     sed -i "s|@@$item|$escaped_value|g" "$file"
   done
 done
-
-# Generate 00-cors-map.conf dynamically with conditional rules
-echo "Generating /etc/nginx/conf.d/00-cors-map.conf with CORS configuration"
-cat > "${DIR_SERVER_BLOCKS}/00-cors-map.conf" <<'EOF'
-# Match request Origin against an explicit origin and/or a configurable regex.
-map $http_origin $cors_origin_mapped {
-  default "";
-EOF
-
-# Add exact match rule if CORS_ALLOW_ORIGIN is not empty
-if [ -n "$CORS_ALLOW_ORIGIN" ]; then
-  printf '  "%s" $http_origin;\n' "$CORS_ALLOW_ORIGIN" >> "${DIR_SERVER_BLOCKS}/00-cors-map.conf"
-fi
-
-# Add regex match rule if CORS_ALLOW_ORIGIN_REGEX is not the default (^$)
-if [ -n "$CORS_ALLOW_ORIGIN_REGEX" ] && [ "$CORS_ALLOW_ORIGIN_REGEX" != "^$" ]; then
-  printf '  "~%s" $http_origin;\n' "$CORS_ALLOW_ORIGIN_REGEX" >> "${DIR_SERVER_BLOCKS}/00-cors-map.conf"
-fi
-
-cat >> "${DIR_SERVER_BLOCKS}/00-cors-map.conf" <<'EOF'
-}
-
-# Only emit the remaining CORS headers when origin matched.
-map $cors_origin_mapped $cors_cred_mapped {
-  default "";
-  "~.+" "@@CORS_ALLOW_CREDENTIALS";
-}
-
-map $cors_origin_mapped $cors_header_mapped {
-  default "";
-  "~.+" "@@CORS_ALLOW_HEADERS";
-}
-
-map $cors_origin_mapped $cors_method_mapped {
-  default "";
-  "~.+" "@@CORS_ALLOW_METHODS";
-}
-
-map $cors_origin_mapped $cors_vary_mapped {
-  default "";
-  "~.+" "Origin";
-}
-EOF
-
-# Now replace placeholders in the generated file
-for item in CORS_ALLOW_CREDENTIALS CORS_ALLOW_HEADERS CORS_ALLOW_METHODS; do
-  value=$(eval "printf '%s' \"\${$item}\"")
-  escaped_value=$(printf '%s\n' "$value" | sed -e 's/[&|/]/\\&/g')
-  sed -i "s|@@$item|$escaped_value|g" "${DIR_SERVER_BLOCKS}/00-cors-map.conf"
-done
-echo "Generated CORS map configuration successfully"
 
 echo "Done"
 
