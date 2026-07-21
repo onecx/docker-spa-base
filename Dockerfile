@@ -1,4 +1,4 @@
-FROM nginxinc/nginx-unprivileged:1.31.3-alpine@sha256:a718212f9cf21e241f14067333000a3f0930292f5354fe0db269e9a2a2596b9e
+FROM nginxinc/nginx-unprivileged:1.31.3-alpine@sha256:18d67281256ded39ff65e010ae4f831be18f19356f83c60bc546492c7eb6dd23
 
 ENV DIR_NGINX /etc/nginx
 ENV DIR_SERVER_BLOCKS ${DIR_NGINX}/conf.d
