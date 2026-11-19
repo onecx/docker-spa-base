@@ -3,6 +3,10 @@
 This image is basedon in NginX. 
 It exposes NginX http server on port 8080, provides a simple static endpoint for healthcheck at `/healthcheck` url. All images and fonts will have cache headers set to 1 month, as well as webpack hashed assets(js and css bundles) as they have hashes included in their names. 
 
+The base image uses the `nginx/nginx-unprivileged` Alpine variant. When updating
+the base image, retain the `-alpine` tag suffix and use the matching image digest:
+the build requires Alpine's `apk` package manager to install `jq`.
+
 # Usage
 
 ```
